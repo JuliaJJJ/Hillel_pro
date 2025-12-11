@@ -1,6 +1,7 @@
+import functools
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template,redirect,url_for
 from flask import request,session
 from flask import redirect
 from flask import url_for
@@ -44,7 +45,17 @@ def get_db_result(query):
     return result
 
 
+def decorator_check_login(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if 'login_in' in session:
+            return func (*args, **kwargs)
+        else:
+            return redirect(url_for('user_login'))
+    return wrapper
+
 @app.route("/")
+@decorator_check_login
 def main_page():
     with db_connection() as cur:
         result = cur.execute('SELECT id,poster,name FROM film order by added_at desc limit 10').fetchall()
@@ -104,6 +115,7 @@ def user_login_post():
 
 
 @app.route('/logout', methods=['GET'])
+@decorator_check_login
 def user_logout():
     session.clear()
     return 'Logout'
@@ -157,8 +169,20 @@ def user_delete(user_id):
 
 @app.route('/films', methods=['GET'])
 def films():
-    result = get_db_result('SELECT id, poster, name FROM film order by added_at desc')
-    return result
+    filter_params = request.args
+    filter_list_texts =[]
+    for key, value in filter_params.items():
+        if value:
+            if key == 'name':
+                filter_list_texts.append(f"name like '%{value}%")
+            else:
+                filter_list_texts.append(f"{key}='{value}'")
+    additional_filter =''
+    if filter_params:
+            additional_filter = 'where' + 'and'.join(filter_list_texts)
+    result = get_db_result(f'SELECT * FROM film order by added_at desc')
+    countries =get_db_result("select * from country")
+    return render_template('films.html', film = result, countries = countries)
 
 
 @app.route('/films', methods=['POST'])
