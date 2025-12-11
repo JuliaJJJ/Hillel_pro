@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Title</title>
+</head>
+<body>
+{% if not user_session  %}
+Hello guest
+{% else %}
+Hello {{user_session['first_name']}} {{ user_session['last_name']}}
+
+
+{% if user['id'] == user_session['id'] %}
+<form method="POST" action="/user/{{ user_session['id'] }}">
+
+    <label for="first_name">First name:</label><br>
+    <input type="text" id="first_name" name="first_name"
+           value="{{ user_session['first_name'] }}"><br>
+
+    <label for="last_name">Last name:</label><br>
+    <input type="text" id="last_name" name="last_name"
+           value="{{ user_session['last_name'] }}"><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"
+           value="{{ user_session['email'] }}"><br>
+
+    <label for="birth_date">Birth date:</label><br>
+    <input type="date" id="birth_date" name="birth_date"
+           value="{{ user_session['birth_date'] }}"><br>
+
+    <label for="phone">Phone_number:</label><br>
+    <input type="text" id="phone_number" name="phone_number"
+           value="{{ user_session['phone_number'] }}"><br>
+
+    <label for="photo">Photo:</label><br>
+    <input type="text" id="photo" name="photo"
+           value="{{ user_session['photo'] }}"><br>
+
+    <label for="additional_info">Additional info:</label><br>
+    <input type="text" id="additional_info" name="additional_info"
+           value="{{ user_session['additional_info'] }}"><br>
+
+    <input type="submit" value="Submit">
+</form>
+{% else %}
+<br>
+    User info:
+    <br>
+    {{user['first_name']}}<br>
+    {{user['last_name']}}<br>
+{% endif %}
+{% endif %}
+
+</body>
+</html>
