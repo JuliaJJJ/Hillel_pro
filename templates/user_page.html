@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang='en'>
 <head>
     <meta charset='UTF-8'>
@@ -11,7 +11,7 @@ Hello guest
 Hello {{user_session['first_name']}} {{ user_session['last_name']}}
 
 
-{% if user['id'] == user_session['id'] %}
+{% if user.id == user_session.id %}
 <form method="POST" action="/user/{{ user_session['id'] }}">
 
     <label for="first_name">First name:</label><br>
