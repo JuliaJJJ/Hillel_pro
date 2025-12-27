@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ film.name }}</title>
+</head>
+<body>
+
+<h1>{{ film.name }}</h1>
+
+<p>Year: {{ film.year }}</p>
+<p>Rating: {{ film.rating }}</p>
+<p>Country: {{ film.country }}</p>
+
+<hr>
+
+<h3>Actors</h3>
+<ul>
+{% for actor in actors %}
+    <li>{{ actor.name }}</li>
+{% else %}
+    <li>No actors</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h3>Genres</h3>
+<ul>
+{% for genre in genres %}
+    <li>{{ genre.genre }}</li>
+{% else %}
+    <li>No genres</li>
+{% endfor %}
+</ul>
+
+<br>
+<a href="/films">← back to films</a>
+
+</body>
+</html>
