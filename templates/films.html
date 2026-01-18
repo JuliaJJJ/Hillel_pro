@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Films</title>
+</head>
+<body>
+
+<h1>Films</h1>
+
+<form action="/films" method="get">
+    <input type="text" name="name" placeholder="Name">
+    <input type="text" name="year" placeholder="Year">
+    <input type="text" name="rating" placeholder="Rating">
+
+    <select name="country">
+        <option value="">-- country --</option>
+        {% for country in countries %}
+            <option value="{{ country.country_name }}">
+                {{ country.country_name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Search">
+</form>
+
+<hr>
+
+{% for one_film in film %}
+    <div>
+        <strong>{{ one_film.name }}</strong>
+        ({{ one_film.year }}) —
+        rating {{ one_film.rating }}
+
+        <a href="/films/{{ one_film.id }}">details</a>
+    </div>
+{% else %}
+    <p>No films found</p>
+{% endfor %}
+
+</body>
+</html>
