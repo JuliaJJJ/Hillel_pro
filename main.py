@@ -146,5 +146,29 @@ def film_create():
     return redirect(url_for("films"))
 
 
+@app.route("/films/<int:film_id>")
+@decorator_check_login
+def film_details(film_id):
+    film = (
+        database.db_session
+        .query(models.Film)
+        .filter(models.Film.id == film_id)
+        .first()
+    )
+
+    if not film:
+        return "Film not found"
+
+
+    actors = getattr(film, "actors", [])
+    genres = getattr(film, "genres", [])
+
+    return render_template(
+        "film.html",
+        film=film,
+        actors=actors,
+        genres=genres
+    )
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

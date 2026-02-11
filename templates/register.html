@@ -1,25 +1,33 @@
-"""
-    <form action="/register" method="post" autocomplete="off">
+{% extends "base.html" %}
 
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" autocomplete="off"><br><br>
+{% block title %}Register{% endblock %}
 
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" autocomplete="off"><br><br>
+{% block content %}
 
-  <label for="password">Password:</label><br>
-  <input type="password" id="password" name="password" autocomplete="off"><br><br>
+<h2>Register</h2>
 
-  <label for="login">Login:</label><br>
-  <input type="text" id="login" name="login" autocomplete="off"><br><br>
+<form method="post" action="{{ url_for('register') }}">
 
-  <label for="email">Email:</label><br>
-  <input type="email" id="email" name="email" autocomplete="off"><br><br>
+    <label>First name:</label><br>
+    <input type="text" name="fname" required><br><br>
 
-  <label for="birth_date">Birth date:</label><br>
-  <input type="date" id="birth_date" name="birth_date" autocomplete="off"><br><br>
+    <label>Last name:</label><br>
+    <input type="text" name="lname" required><br><br>
 
-  <input type="submit" value="Submit">
+    <label>Login:</label><br>
+    <input type="text" name="login" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" name="password" required><br><br>
+
+    <label>Birth date:</label><br>
+    <input type="date" name="birth_date" required><br><br>
+
+    <input type="submit" value="Register">
 
 </form>
-"""
+
+{% endblock %}

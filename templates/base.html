@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My App{% endblock %}</title>
+</head>
+<body>
+
+<nav>
+    {% if session.get("user_id") %}
+        <a href="{{ url_for('main_page') }}">Home</a> |
+        <a href="{{ url_for('films') }}">Films</a> |
+        <a href="{{ url_for('user_logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('user_login') }}">Login</a> |
+        <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+</nav>
+
+<hr>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

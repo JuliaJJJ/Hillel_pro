@@ -1,5 +1,26 @@
-<section class="content">
-    {% for one_film in films %}
-        <div>{{one_film['name']}} {{one_film['year']}}{{one_film['rating']}} <a href="/films/{{one_film['id']}}">{{one_film['name']}}</a></div>
-    {% endfor %}
-</section>
+{% extends "base.html" %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block content %}
+
+<h1>Latest Films</h1>
+
+{% for film in films %}
+    <div>
+        <strong>{{ film.name }}</strong>
+        ({{ film.year }}) —
+        rating {{ film.rating }}
+
+        <a href="{{ url_for('film_details', film_id=film.id) }}">
+            details
+        </a>
+    </div>
+{% else %}
+    <p>No films yet</p>
+{% endfor %}
+
+<br>
+<a href="{{ url_for('films') }}">View all films</a>
+
+{% endblock %}
